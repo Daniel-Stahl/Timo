@@ -14,6 +14,8 @@ const app = express();
 const Timer = require('./timer.js');
 const timer = new Timer();
 
+timer.start(1);
+
 app.use('/slack/events', slackEvents.expressMiddleware());
 app.use('/slack/actions', slackInteractions.expressMiddleware())
 app.use(bodyParser.urlencoded({extended: true}));
@@ -50,6 +52,7 @@ slackEvents.on('app_mention', async (event) => {
   try {
     const mentionResponseBlock = { ...messageJsonBlock, ...{channel: event.channel}}
     const res = await webClient.chat.postMessage(mentionResponseBlock)
+    timer.start(1);
     console.log('Message sent: ', res.ts)
   } catch (e) {
     //Work on error handling
@@ -124,7 +127,6 @@ slackInteractions.shortcut('pomodoro_timer',(payload) => {
       ]
     }
   })
-  //timer.start(1);
 
 
 

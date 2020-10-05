@@ -1,7 +1,7 @@
 class Timer {
   start(timer) {
     console.log("Timer started: ", timer);
-    seconds = timer * 60;
+    let seconds = timer * 60;
 
     let interval = setInterval(function () {
       //Get remaining time
