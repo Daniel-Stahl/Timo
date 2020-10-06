@@ -14,8 +14,6 @@ const app = express();
 const Timer = require('./timer.js');
 const timer = new Timer();
 
-timer.start(1);
-
 app.use('/slack/events', slackEvents.expressMiddleware());
 app.use('/slack/actions', slackInteractions.expressMiddleware())
 app.use(bodyParser.urlencoded({extended: true}));
@@ -52,7 +50,7 @@ slackEvents.on('app_mention', async (event) => {
   try {
     const mentionResponseBlock = { ...messageJsonBlock, ...{channel: event.channel}}
     const res = await webClient.chat.postMessage(mentionResponseBlock)
-    timer.start(1);
+    //timer.start(1);
     console.log('Message sent: ', res.ts)
   } catch (e) {
     //Work on error handling
@@ -66,7 +64,7 @@ slackInteractions.action({type: 'button'}, (payload, respond) => {
       "type": "modal",
       "title": {
         "type": "plain_text",
-        "text": "My App"
+        "text": "Timo"
       },
       "close": {
         "type": "plain_text",
@@ -74,10 +72,10 @@ slackInteractions.action({type: 'button'}, (payload, respond) => {
       },
       "blocks": [
         {
-          "type": "section",
+          "type": "header",
           "text": {
-            "type": "mrkdwn",
-            "text": "About the simplest modal you could conceive of :smile:\n\nMaybe <https://api.slack.com/reference/block-kit/interactive-components|*make the modal interactive*> or <https://api.slack.com/surfaces/modals/using#modifying|*learn more advanced modal use cases*>."
+            "type": "plain_text",
+            "text": "Hello",
           }
         },
         {

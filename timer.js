@@ -1,6 +1,11 @@
 class Timer {
+  #isTimerStart = false;
+
+  //timerStatus() { return "Hello" }
+
   start(timer) {
     console.log("Timer started: ", timer);
+    isTimerStart = true;
     let seconds = timer * 60;
 
     let interval = setInterval(function () {
@@ -10,6 +15,7 @@ class Timer {
       console.log(seconds);
 
       if (seconds <= 0) {
+        isTimerStart = false;
         console.log('Timer stopped');
         clearTimeout(interval)
       }
@@ -26,7 +32,7 @@ class Timer {
   pomodoro(duration, breakTime) {
     pomodoroTime = { total: duration * 60, minutes: duration, seconds: 0, breakTime: breakTime };
 
-    start(pomodoro);
+    start(pomodoroTime);
 
   }
 
