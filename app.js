@@ -50,7 +50,7 @@ slackEvents.on('app_mention', async (event) => {
   try {
     const mentionResponseBlock = { ...messageJsonBlock, ...{channel: event.channel}}
     const res = await webClient.chat.postMessage(mentionResponseBlock)
-    //timer.start(1);
+    timer.start(5);
     console.log('Message sent: ', res.ts)
   } catch (e) {
     //Work on error handling
@@ -125,12 +125,6 @@ slackInteractions.shortcut('pomodoro_timer',(payload) => {
       ]
     }
   })
-
-
-
-
-
-
 })
 
 app.listen(port, function() {
